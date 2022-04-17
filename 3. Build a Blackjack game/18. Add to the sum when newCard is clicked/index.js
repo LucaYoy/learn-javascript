@@ -31,4 +31,8 @@ function newCard() {
     // 2. Add the new card to the sum variable
     
     // 3. Call startGame()
+
+    let newCard  = 5; 
+    sum += newCard; 
+    startGame();
 }
