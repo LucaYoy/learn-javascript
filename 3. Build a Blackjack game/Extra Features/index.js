@@ -18,6 +18,9 @@ let betEl = document.getElementById("bet-el")
 let startBtn = document.getElementById("startRound-el")
 let newCardBtn = document.getElementById("newCard-el")
 let endBtn = document.getElementById("endRound-el")
+let noMoneyMsg = document.getElementById("noMoney-el")
+let playAgainBtn = document.createElement("button")
+let gameOver = false
 
 playerEl.textContent = player.name + ": $" + player.chips
 newCardBtn.style.background = "grey"
@@ -35,7 +38,7 @@ function getRandomCard() {
 }
 
 function startRound() {
-    if (roundStarted === false) {
+    if (roundStarted === false && gameOver === false) {
         isAlive = true
         hasBlackJack = false
         roundStarted = true
@@ -56,6 +59,8 @@ function endRound() {
         player.chips -= 0.5*player.bet
         isAlive = false
         roundEnded()
+        renderGame()
+        messageEl.textContent = "You've ended the round"
     }
 }
 
@@ -80,6 +85,19 @@ function renderGame() {
         isAlive = false
     }
     messageEl.textContent = message
+    if (player.chips <= 50) {
+        player.bet = player.chips
+        if (player.chips === 0) {
+            noMoneyMsg.textContent = "You have no more chips, you are out of the game"
+            playAgainBtn.textContent ="PLAY AGAIN"
+            document.querySelector("body").insertBefore(playAgainBtn, noMoneyMsg.nextSibling)
+            startBtn.style.background = "grey"
+            playAgainBtn.setAttribute("onclick","window.location.reload()")
+            gameOver = true
+        }
+    } else if (player.chips > 50) {
+        player.bet = 50
+    }
 }
 
 function roundEnded() {
