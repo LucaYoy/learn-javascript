@@ -8,6 +8,10 @@ let data = [
         score: 41
     }
 ]
+let janeBtn = document.getElementById("btn")
+janeBtn.addEventListener("click", function(){
+    console.log(data[0].score)
+})
 
 // Fetch the button from the DOM, store it in a variable
 // Use addEventListener() to listen for button clicks
